@@ -39,9 +39,6 @@ function scene1() {
     fill(255);
     textSize(20);
     textAlign(CENTER);
-    if (!stepTriggered && dropped) {
-        text("Press SPACE to step on the fire", width / 2, 40);
-    }
     return elapsedTime;
 }
 
