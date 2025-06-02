@@ -51,7 +51,7 @@ function Cigarette6(x, y) {
 }
 
 function mousePressed() {
-    let w = width / 20;
+    let w = width / 30;
     let h = height / 60;
 
     // 마우스가 담배 안에 있는지 확인
