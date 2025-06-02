@@ -44,9 +44,9 @@ function Cigarette6(x, y) {
     translate(x, y);
     noStroke();
     fill(255);
-    rect(0, 0, width / 20, height / 60, 2);
+    rect(0, 0, width / 30, height / 60, 2);
     fill(255, 50, 0);
-    rect(width / 20, 0, width / 120, height / 60, 1);
+    rect(width / 30, 0, width / 120, height / 60, 1);
     pop();
 }
 
