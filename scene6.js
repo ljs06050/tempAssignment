@@ -69,13 +69,81 @@ function mouseReleased() {
 
 function drawTrashCan() {
     push();
-    rectMode(CORNER);
-    stroke(100);
+    
+    // 3D 효과를 위한 상수
+    let depthFactor = trashW * 0.3;   // 쓰레기통의 "깊이감"
+    let rimWidth = 6;                 // 상단 테두리 너비
+    let shadowOpacity = 80;           // 그림자 투명도
+    
+    // 그림자 그리기
+    noStroke();
+    fill(0, 0, 0, shadowOpacity);
+    ellipse(trashX + trashW/2, trashY + trashH + 5, trashW * 0.8, depthFactor/2);
+    
+    // 쓰레기통 뒷면 그리기 (3D 효과)
+    fill(130);  // 뒷면은 더 어두운 색상
+    stroke(80);
+    strokeWeight(1);
+    // 뒷면 - 약간 오프셋을 주어 3D 느낌 부여
+    rect(trashX + depthFactor/6, trashY - depthFactor/6, trashW - depthFactor/3, trashH, 10);
+    
+    // 측면 패널 그리기 (원근감 효과)
+    fill(160);
+    beginShape();
+    vertex(trashX, trashY + trashH - 10);  // 왼쪽 하단 전면
+    vertex(trashX + depthFactor/6, trashY + trashH - 10); // 왼쪽 하단 후면
+    vertex(trashX + depthFactor/6, trashY); // 왼쪽 상단 후면
+    vertex(trashX, trashY); // 왼쪽 상단 전면
+    endShape(CLOSE);
+    
+    beginShape();
+    vertex(trashX + trashW, trashY + trashH - 10);  // 오른쪽 하단 전면
+    vertex(trashX + trashW - depthFactor/6, trashY + trashH - 10); // 오른쪽 하단 후면
+    vertex(trashX + trashW - depthFactor/6, trashY); // 오른쪽 상단 후면
+    vertex(trashX + trashW, trashY); // 오른쪽 상단 전면
+    endShape(CLOSE);
+    
+    // 몸체 그리기
     fill(180);
-    rect(trashX, trashY, trashW, trashH, 10); // 몸체
-
-    // 뚜껑
+    stroke(100);
+    strokeWeight(1.5);
+    rect(trashX, trashY, trashW, trashH, 10); // 전면
+    
+    // 상단 테두리 추가 (깊이감)
+    fill(150);
+    rect(trashX - rimWidth/2, trashY - rimWidth/2, trashW + rimWidth, rimWidth, 5);
+    
+    // 그라데이션과 3D 효과로 뚜껑 그리기
+    // 먼저, 뒤쪽 호 그리기
+    fill(120);
+    arc(trashX + trashW / 2, trashY, trashW - depthFactor/3, 40, PI, 0, CHORD);
+    
+    // 메인 뚜껑 그리기
     fill(150);
     arc(trashX + trashW / 2, trashY, trashW, 40, PI, 0, CHORD);
+    
+    // 3D 효과를 위한 뚜껑 하이라이트 추가
+    noFill();
+    stroke(220, 220, 220, 150);
+    strokeWeight(2);
+    arc(trashX + trashW / 2, trashY, trashW * 0.8, 30, PI+0.3, TWO_PI-0.3);
+    
+    // 뚜껑에 손잡이 추가
+    fill(100);
+    noStroke();
+    rect(trashX + trashW/2 - 15, trashY - 5, 30, 3, 2);
+    
+    // 전면에 미묘한 텍스처 패턴 추가
+    strokeWeight(0.3);
+    stroke(160);
+    for (let i = 0; i < 5; i++) {
+        line(
+            trashX + trashW * 0.2, 
+            trashY + trashH * 0.3 + i * (trashH * 0.1), 
+            trashX + trashW * 0.8, 
+            trashY + trashH * 0.3 + i * (trashH * 0.1)
+        );
+    }
+    
     pop();
 }
